@@ -99,5 +99,5 @@ If you'd like to contribute to this project, please fork the repository and subm
 For any questions or feedback, please contact:
 
 - [Mariam Shonia](mshonia18@gmail.com)
-- [Your GitHub Profile](https://github.com/MariamSh03)
+- [GitHub Profile](https://github.com/MariamSh03)
 
