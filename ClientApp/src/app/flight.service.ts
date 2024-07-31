@@ -8,19 +8,23 @@ export interface TimePlaceRm {
 }
 
 export interface FlightRm {
-  id: string;
   airline: string;
-  price: string;
-  departure: TimePlaceRm;
-  arrival: TimePlaceRm;
-  remainingNumberOfSeats: number;
+  remainingNumberOfSeats: number; // Fix typo here
+  departure: {
+    place: string;
+    time: Date;
+  };
+  arrival: { // Fix typo here
+    place: string;
+    time: Date;
+  };
+  price: number;
 }
-
 @Injectable({
   providedIn: 'root'
 })
 export class FlightService {
-  private apiUrl = 'https://localhost:7169/Flight'; // Your API base URL
+  private apiUrl = 'https://localhost:7169/Flight';
 
   constructor(private http: HttpClient) { }
 

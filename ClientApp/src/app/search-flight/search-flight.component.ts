@@ -1,5 +1,5 @@
-import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FlightService, FlightRm } from '../flight.service';
 
 @Component({
   selector: 'app-search-flight',
@@ -8,62 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchFlightComponent implements OnInit {
 
-  searchResult: FlightRm[] = [
-    {
-      airline: "American Airlines",
-      remainingNuimberOfSeats: 500,
-      departure: { time: new Date().toString(), place: "Los Angeles" },
-      arival: { time: new Date().toString(), place: "Istanbul" },
-      price: "350",
-    },
-    {
-      airline: "Turkish Airlines",
-      remainingNuimberOfSeats: 300,
-      departure: { time: new Date().toString(), place: "Ankara" },
-      arival: { time: new Date().toString(), place: "Istanbul" },
-      price: "200",
-    },
-    {
-      airline: "Lufthansa",
-      remainingNuimberOfSeats: 400,
-      departure: { time: new Date().toString(), place: "Berlin" },
-      arival: { time: new Date().toString(), place: "Frankfurt" },
-      price: "250",
-    },
-    {
-      airline: "Turkish Airlines",
-      remainingNuimberOfSeats: 150,
-      departure: { time: new Date().toString(), place: "Antalya" },
-      arival: { time: new Date().toString(), place: "Izmir" },
-      price: "180",
-    },
-    {
-      airline: "Lufthansa",
-      remainingNuimberOfSeats: 350,
-      departure: { time: new Date().toString(), place: "Düsseldorf" },
-      arival: { time: new Date().toString(), place: "Munich" },
-      price: "220",
-    }
-  ];
+  searchResult: FlightRm[] = []; // Define the searchResult property
 
-  constructor() { }
+  constructor(private flightService: FlightService) { }
 
   ngOnInit(): void {
-   
+    // Fetch flight data and assign it to searchResult
+    this.flightService.searchFlights().subscribe(data => {
+      this.searchResult = data;
+    });
   }
-
-}
-
-export interface FlightRm {
-  airline: string;
-  arival: TimePlaceRm;
-  departure: TimePlaceRm;
-  price: string;
-  remainingNuimberOfSeats: number;
-
-}
-
-export interface TimePlaceRm {
-  place: string;
-  time: string;
 }

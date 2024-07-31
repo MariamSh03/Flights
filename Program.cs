@@ -1,37 +1,40 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllersWithViews();
-builder.Services.AddSwaggerGen(c =>
+builder.Services.AddCors(options =>
 {
-    c.AddServer(new Microsoft.OpenApi.Models.OpenApiServer
-    {
-        Description = "Developement Server",
-        Url = "https://localhost:7169"
-    });
+    options.AddPolicy("AllowSpecificOrigin",
+        builder =>
+        {
+            builder.WithOrigins("https://localhost:44416")
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
 });
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
-app.UseSwagger().UseSwaggerUI();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
 
+app.UseCors("AllowSpecificOrigin");
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+app.UseAuthorization();
 
-app.MapFallbackToFile("index.html"); ;
+app.MapControllers();
 
 app.Run();
