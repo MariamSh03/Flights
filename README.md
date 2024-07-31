@@ -94,10 +94,6 @@ To allow the Angular frontend to communicate with the .NET API, CORS (Cross-Orig
 
 If you'd like to contribute to this project, please fork the repository and submit a pull request. Ensure that your contributions adhere to the project's coding standards and pass all tests.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Contact
 
 For any questions or feedback, please contact:
